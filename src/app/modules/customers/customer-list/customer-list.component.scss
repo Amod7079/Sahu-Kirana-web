@@ -1,0 +1,52 @@
+.customer-container {
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h1 {
+        margin: 0;
+    }
+}
+
+.customer-list-card {
+    overflow: hidden;
+}
+
+.full-width-table {
+    width: 100%;
+}
+
+.no-customers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: rgba(0, 0, 0, 0.54);
+
+    .empty-icon {
+        font-size: 48px;
+        height: 48px;
+        width: 48px;
+        margin-bottom: 16px;
+    }
+}
+
+.negative-balance {
+    color: green;
+}
+
+.positive-balance {
+    color: red;
+    font-weight: 500;
+}
+
+.whatsapp-button {
+    background-color: #25D366 !important; // WhatsApp Green
+    color: white !important;
+}

@@ -1,0 +1,67 @@
+<div class="settings-container">
+    <h1>Settings</h1>
+
+    <div class="settings-grid">
+        <!-- Shop Profile -->
+        <mat-card class="settings-card">
+            <mat-card-header>
+                <mat-card-title>Shop Profile</mat-card-title>
+                <mat-card-subtitle>Manage your shop details</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()" class="settings-form">
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Shop Name</mat-label>
+                        <input matInput formControlName="shopName" placeholder="Ex: Gupta General Store">
+                        <mat-icon matSuffix>store</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Owner Name</mat-label>
+                        <input matInput formControlName="ownerName" placeholder="Ex: Ramesh Gupta">
+                        <mat-icon matSuffix>person</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput formControlName="phone" placeholder="Ex: 9876543210" maxlength="10">
+                        <mat-icon matSuffix>phone</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <textarea matInput formControlName="address" rows="3"></textarea>
+                        <mat-icon matSuffix>location_on</mat-icon>
+                    </mat-form-field>
+
+                    <div class="actions">
+                        <button mat-flat-button color="primary" type="submit" [disabled]="settingsForm.invalid">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Data Management -->
+        <mat-card class="settings-card danger-zone">
+            <mat-card-header>
+                <mat-card-title class="danger-title">Data Management</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Advanced actions for data control.</p>
+
+                <div class="danger-action">
+                    <div class="info">
+                        <strong>Reset Application Data</strong>
+                        <span>Deletes all customers and transactions permanently.</span>
+                    </div>
+                    <button mat-stroked-button color="warn" (click)="resetData()">
+                        Reset Data
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

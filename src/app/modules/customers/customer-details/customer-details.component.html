@@ -1,0 +1,94 @@
+<div class="details-container">
+    <!-- Header / Toolbar -->
+    <div class="page-header">
+        <button mat-icon-button routerLink="/customers">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h1>Customer Details</h1>
+        <span class="spacer"></span>
+    </div>
+
+    <div class="content-wrapper" *ngIf="customer">
+        <!-- Customer Info Card -->
+        <mat-card class="info-card">
+            <mat-card-header>
+                <div mat-card-avatar class="customer-avatar">
+                    <mat-icon>person</mat-icon>
+                </div>
+                <mat-card-title>{{customer.name}}</mat-card-title>
+                <mat-card-subtitle>{{customer.phone}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="balance-content">
+                <div class="balance-item">
+                    <span class="label">Current Balance</span>
+                    <span class="value" [class.negative]="customer.balance < 0" [class.positive]="customer.balance > 0">
+                        ₹{{customer.balance}}
+                    </span>
+                </div>
+                <div class="balance-actions">
+                    <button mat-raised-button color="primary" (click)="openAddTransactionDialog()">
+                        <mat-icon>add</mat-icon> Add Transaction
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Transactions List -->
+        <div class="transactions-section">
+            <h3>Transaction History</h3>
+
+            <div class="responsive-table">
+                <table mat-table [dataSource]="transactions" class="mat-elevation-z2">
+
+                    <!-- Date Column -->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> Date </th>
+                        <td mat-cell *matCellDef="let element"> {{element.date | date:'mediumDate'}} </td>
+                    </ng-container>
+
+                    <!-- Type Column -->
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef> Type </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-chip-set>
+                                <mat-chip [color]="element.type === 'CREDIT' ? 'warn' : 'primary'" selected>
+                                    {{element.type === 'CREDIT' ? 'Udhar' : 'Jama'}}
+                                </mat-chip>
+                            </mat-chip-set>
+                        </td>
+                    </ng-container>
+
+                    <!-- Description Column -->
+                    <ng-container matColumnDef="description">
+                        <th mat-header-cell *matHeaderCellDef> Description </th>
+                        <td mat-cell *matCellDef="let element"> {{element.description || '-'}} </td>
+                    </ng-container>
+
+                    <!-- Amount Column -->
+                    <ng-container matColumnDef="amount">
+                        <th mat-header-cell *matHeaderCellDef> Amount </th>
+                        <td mat-cell *matCellDef="let element" class="amount-cell"
+                            [class.credit]="element.type === 'CREDIT'" [class.payment]="element.type === 'PAYMENT'">
+                            ₹{{element.amount}}
+                        </td>
+                    </ng-container>
+
+                    <!-- Balance After Column -->
+                    <ng-container matColumnDef="balance">
+                        <th mat-header-cell *matHeaderCellDef> Balance After </th>
+                        <td mat-cell *matCellDef="let element"> ₹{{element.balanceAfter}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="5" style="text-align: center; padding: 20px;">
+                            No transactions found.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

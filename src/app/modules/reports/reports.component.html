@@ -1,0 +1,53 @@
+<div class="reports-container">
+    <h1>Business Reports</h1>
+
+    <!-- Summary Cards -->
+    <div class="stats-grid">
+        <mat-card class="stat-card">
+            <mat-card-header>
+                <div mat-card-avatar class="avatar-container warn">
+                    <mat-icon>trending_up</mat-icon>
+                </div>
+                <mat-card-title>Today's Credit</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="stat-value negative">₹{{todayCredit}}</div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card">
+            <mat-card-header>
+                <div mat-card-avatar class="avatar-container primary">
+                    <mat-icon>account_balance_wallet</mat-icon>
+                </div>
+                <mat-card-title>Today's Collection</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="stat-value positive">₹{{todayCollected}}</div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="charts-section">
+        <!-- Top Debtors -->
+        <mat-card class="list-card">
+            <mat-card-header>
+                <mat-card-title>Top Debtors (Highest Balance)</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="debtor-list">
+                    <div class="debtor-item" *ngFor="let customer of topDebtors">
+                        <div class="debtor-info">
+                            <span class="name">{{customer.name}}</span>
+                            <span class="phone">{{customer.phone}}</span>
+                        </div>
+                        <span class="balance">₹{{customer.balance}}</span>
+                    </div>
+                    <div *ngIf="topDebtors.length === 0" class="no-data">
+                        No data available
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+.subtitle {
+    margin-top: -10px;
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.transaction-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 350px;
+    padding-top: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.type-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.amount-field {
+    input {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+}
+
+@media (max-width: 600px) {
+    .transaction-form {
+        min-width: unset;
+        width: 100%;
+    }
+}

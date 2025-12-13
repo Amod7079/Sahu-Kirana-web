@@ -1,0 +1,119 @@
+.reports-container {
+    padding: 20px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 500;
+    margin-top: 10px;
+
+    &.negative {
+        color: #f44336;
+    }
+
+    &.positive {
+        color: #4caf50;
+    }
+}
+
+.avatar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.avatar-container.primary {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+}
+
+.avatar-container.warn {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+}
+
+.charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+
+    .chart-card {
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+
+        &.large-chart {
+            grid-column: 1 / -1;
+
+            @media (min-width: 1200px) {
+                grid-column: span 2;
+            }
+        }
+
+        .chart-container {
+            flex: 1;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            /* For axis labels */
+        }
+    }
+
+    .list-card {
+        min-height: 400px;
+    }
+}
+
+.debtor-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.debtor-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+
+    .debtor-info {
+        display: flex;
+        flex-direction: column;
+
+        .name {
+            font-weight: 500;
+        }
+
+        .phone {
+            font-size: 0.8rem;
+            color: #666;
+        }
+    }
+
+    .balance {
+        color: #f44336;
+        font-weight: bold;
+    }
+}
+
+.no-data {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+}

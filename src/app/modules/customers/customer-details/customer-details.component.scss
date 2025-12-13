@@ -1,0 +1,104 @@
+.details-container {
+    padding: 20px;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    h1 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.info-card {
+    .customer-avatar {
+        background-color: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+    }
+
+    .balance-content {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .balance-item {
+        display: flex;
+        flex-direction: column;
+
+        .label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .value {
+            font-size: 2rem;
+            font-weight: 500;
+
+            &.negative {
+                color: green;
+            }
+
+            /* Balance is usually positive for Shop Owner in Udhar app? Actually, Udhar means they owe money. Usually represented as Positive or Negative depending on perspective. Here, assuming Positive = They Owe (Red?) or They Owe (Green represents Asset?) */
+            /* Let's stick to: Positive Balance = They have Udhar (They owe us). Negative Balance = Advance Payment. */
+            /* Wait, usually: Credit = +Balance (They owe). Payment = -Balance. */
+
+            &.positive {
+                color: #f44336;
+            }
+
+            /* Warning color for outstanding udhar */
+            &.negative {
+                color: #4caf50;
+            }
+
+            /* Green for advance/no dues */
+        }
+    }
+}
+
+.transactions-section {
+    h3 {
+        margin-bottom: 16px;
+    }
+}
+
+.responsive-table {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+}
+
+.amount-cell {
+    font-weight: 500;
+
+    &.credit {
+        color: #f44336;
+    }
+
+    &.payment {
+        color: #4caf50;
+    }
+}

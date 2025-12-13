@@ -1,0 +1,71 @@
+<div class="customer-container">
+    <div class="header">
+        <h1>Customers</h1>
+        <button mat-raised-button color="primary" (click)="openAddCustomerDialog()">
+            <mat-icon>add</mat-icon>
+            Add Customer
+        </button>
+    </div>
+
+    <mat-card class="customer-list-card">
+        <div *ngIf="customers.length === 0" class="no-customers">
+            <mat-icon class="empty-icon">people_outline</mat-icon>
+            <p>No customers found</p>
+            <button mat-button color="primary" (click)="openAddCustomerDialog()">Add your first customer</button>
+        </div>
+
+        <table mat-table [dataSource]="customers" *ngIf="customers.length > 0" class="full-width-table">
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Phone Column -->
+            <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef> Phone </th>
+                <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+            </ng-container>
+
+            <!-- Balance Column -->
+            <ng-container matColumnDef="balance">
+                <th mat-header-cell *matHeaderCellDef> Balance </th>
+                <td mat-cell *matCellDef="let element" [class.negative-balance]="element.balance < 0"
+                    [class.positive-balance]="element.balance > 0">
+                    ₹{{element.balance}}
+                </td>
+            </ng-container>
+
+            <!-- WhatsApp Column -->
+            <ng-container matColumnDef="whatsapp">
+                <th mat-header-cell *matHeaderCellDef> WhatsApp </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-mini-fab class="whatsapp-button" (click)="openWhatsApp(element)"
+                        matTooltip="Send Reminder">
+                        <mat-icon>chat</mat-icon>
+                        <!-- Using 'chat' as WhatsApp icon is not standard Material, effectively usually involves a custom SVG or 'chat'/'message' -->
+                    </button>
+                </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="primary" (click)="viewCustomer(element.id)"
+                        matTooltip="View Details">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" *ngIf="element.balance === 0" (click)="deleteCustomer(element)"
+                        matTooltip="Delete Customer">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
+</div>
