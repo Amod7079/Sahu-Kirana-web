@@ -75,7 +75,8 @@ export class CustomerListComponent implements OnInit {
 
   openAddCustomerDialog(): void {
     const dialogRef = this.dialog.open(AddCustomerDialogComponent, {
-      width: '400px'
+      width: '95%',
+      maxWidth: '400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

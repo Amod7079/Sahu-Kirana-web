@@ -40,7 +40,10 @@ import { CustomerService } from '../../core/services/customer.service';
   `,
   styles: [`
     .dashboard-container { padding: 20px; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+    @media (max-width: 600px) {
+        .dashboard-container { padding: 10px; }
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
     .stat-value { font-size: 32px; font-weight: 500; margin-top: 10px; }
     .stat-value.negative { color: #f44336; }
     

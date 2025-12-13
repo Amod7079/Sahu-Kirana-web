@@ -71,7 +71,8 @@ export class CustomerDetailsComponent implements OnInit {
     if (!this.customer) return;
 
     const dialogRef = this.dialog.open(AddTransactionDialogComponent, {
-      width: '400px',
+      width: '95%',
+      maxWidth: '400px',
       data: { customerName: this.customer.name }
     });
 

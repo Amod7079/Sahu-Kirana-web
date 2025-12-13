@@ -17,8 +17,14 @@
     overflow: hidden;
 }
 
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
 .full-width-table {
     width: 100%;
+    min-width: 600px; // Ensure table has minimum width to force scroll
 }
 
 .no-customers {
