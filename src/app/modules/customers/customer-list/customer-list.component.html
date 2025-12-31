@@ -57,8 +57,12 @@
                             matTooltip="View Details">
                             <mat-icon>visibility</mat-icon>
                         </button>
-                        <button mat-icon-button color="warn" *ngIf="element.balance === 0" (click)="deleteCustomer(element)"
-                            matTooltip="Delete Customer">
+                        <button mat-icon-button style="color: #673ab7;" (click)="downloadPdf(element)"
+                            matTooltip="Download Statement">
+                            <mat-icon>picture_as_pdf</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" *ngIf="element.balance === 0"
+                            (click)="deleteCustomer(element)" matTooltip="Delete Customer">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>

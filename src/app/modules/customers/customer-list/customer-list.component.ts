@@ -10,11 +10,17 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Customer } from '../../../core/models/customer.model';
 import { CustomerService } from '../../../core/services/customer.service';
 import { AddCustomerDialogComponent } from '../add-customer-dialog/add-customer-dialog.component';
+import { TransactionService } from '../../../core/services/transaction.service';
+import { SettingsService } from '../../../core/services/settings.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-customer-list',
   standalone: true,
   imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatDialogModule],
+  providers: [DatePipe],
   templateUrl: './customer-list.component.html',
   styleUrl: './customer-list.component.scss'
 })
@@ -24,6 +30,8 @@ export class CustomerListComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
+    private transactionService: TransactionService,
+    private settingsService: SettingsService,
     private dialog: MatDialog,
     private router: Router
   ) { }
@@ -71,6 +79,79 @@ export class CustomerListComponent implements OnInit {
     if (customerId) {
       this.router.navigate(['/customers', customerId]);
     }
+  }
+
+  downloadPdf(customer: Customer): void {
+    if (!customer.id) return;
+
+    this.transactionService.getTransactionsByCustomer(customer.id).subscribe(transactions => {
+      const doc = new jsPDF();
+      const settings = this.settingsService.getShopSettings();
+      const shopName = settings.shopName || 'Shivnarayan Sah Kirana Shop';
+      const shopAddress = settings.address || '';
+      const shopPhone = settings.phone || '';
+
+      // Header
+      doc.setFontSize(18);
+      doc.text(shopName, 105, 15, { align: 'center' });
+
+      doc.setFontSize(10);
+      doc.text(shopAddress, 105, 22, { align: 'center' });
+      doc.text(`Phone: ${shopPhone}`, 105, 27, { align: 'center' });
+
+      doc.line(10, 30, 200, 30);
+
+      // Customer Details
+      doc.setFontSize(12);
+      doc.text('Statement of Account', 14, 40);
+
+      doc.setFontSize(10);
+      doc.text(`Customer Name: ${customer.name}`, 14, 48);
+      doc.text(`Phone: ${customer.phone}`, 14, 53);
+      doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 48);
+
+      // Transactions Table
+      const tableData = transactions.map(t => [
+        new Date(t.date).toLocaleDateString(),
+        t.type,
+        t.description || '',
+        `Rs. ${t.amount}`
+      ]);
+
+      autoTable(doc, {
+        head: [['Date', 'Type', 'Description', 'Amount']],
+        body: tableData,
+        startY: 60,
+        theme: 'grid',
+        styles: { fontSize: 9 },
+        headStyles: { fillColor: [63, 81, 181] }
+      });
+
+      // Footer / Summary
+      const finalY = (doc as any).lastAutoTable.finalY + 10;
+
+      doc.text(`Total Credit: Rs. ${customer.totalCredit}`, 14, finalY);
+      doc.text(`Total Paid: Rs. ${customer.totalPaid}`, 14, finalY + 5);
+
+      doc.setFontSize(12);
+      doc.setTextColor(customer.balance > 0 ? 255 : 0, 0, 0); // Red if balance > 0
+      doc.text(`Current Balance: Rs. ${customer.balance}`, 14, finalY + 12);
+
+      // Signature
+      const img = new Image();
+      img.src = 'assets/signature.jpg';
+      img.onload = () => {
+        doc.addImage(img, 'JPEG', 140, finalY + 5, 40, 20);
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text('Authorized Signatory', 140, finalY + 30);
+        doc.save(`${customer.name.replace(/\s+/g, '_')}_Statement.pdf`);
+      };
+
+      img.onerror = () => {
+        doc.save(`${customer.name.replace(/\s+/g, '_')}_Statement.pdf`);
+      };
+    });
   }
 
   openAddCustomerDialog(): void {
