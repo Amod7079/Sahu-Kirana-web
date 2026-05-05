@@ -6,15 +6,39 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 
     h1 {
         margin: 0;
+        font-weight: 700;
+        background: linear-gradient(45deg, #3f51b5, #00bcd4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.5px;
+    }
+    
+    button {
+        border-radius: 20px;
+        padding: 0 24px;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        box-shadow: 0 4px 12px rgba(63, 81, 181, 0.2) !important;
+        
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(63, 81, 181, 0.35) !important;
+        }
     }
 }
 
 .customer-list-card {
     overflow: hidden;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.04) !important;
+    transition: box-shadow 0.3s ease;
+    
+    &:hover {
+        box-shadow: 0 12px 48px rgba(0,0,0,0.08) !important;
+    }
 }
 
 .table-container {
@@ -25,6 +49,14 @@
 .full-width-table {
     width: 100%;
     min-width: 600px; // Ensure table has minimum width to force scroll
+}
+
+.interactive-row {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    
+    &:hover {
+        background-color: #f8f9ff !important;
+    }
 }
 
 .no-customers {
@@ -53,6 +85,36 @@
 }
 
 .whatsapp-button {
-    background-color: #25D366 !important; // WhatsApp Green
+    background: linear-gradient(135deg, #25D366, #128C7E) !important; // WhatsApp Green gradient
     color: white !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    
+    &:hover {
+        transform: scale(1.15) rotate(5deg);
+        box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4) !important;
+    }
+}
+
+.ai-glow {
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+// Action buttons hover
+.mat-mdc-icon-button {
+    transition: transform 0.2s ease !important;
+    &:hover {
+        transform: scale(1.2);
+    }
 }

@@ -7,8 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Customer } from '../../../core/models/customer.model';
 import { CustomerService } from '../../../core/services/customer.service';
+import { OpenaiService } from '../../../core/services/openai.service';
 import { AddCustomerDialogComponent } from '../add-customer-dialog/add-customer-dialog.component';
 import { TransactionService } from '../../../core/services/transaction.service';
 import { SettingsService } from '../../../core/services/settings.service';
@@ -19,7 +21,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-customer-list',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatDialogModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatDialogModule, MatTooltipModule, MatSnackBarModule],
   providers: [DatePipe],
   templateUrl: './customer-list.component.html',
   styleUrl: './customer-list.component.scss'
@@ -33,7 +35,9 @@ export class CustomerListComponent implements OnInit {
     private transactionService: TransactionService,
     private settingsService: SettingsService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private openaiService: OpenaiService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -58,7 +62,7 @@ export class CustomerListComponent implements OnInit {
     }
   }
 
-  openWhatsApp(customer: Customer): void {
+  async openWhatsApp(customer: Customer): Promise<void> {
     if (!customer.phone) return;
 
     // Basic cleaning of phone number
@@ -69,10 +73,27 @@ export class CustomerListComponent implements OnInit {
       phone = '91' + phone;
     }
 
-    const message = `Hello ${customer.name}, your current balance is ₹${customer.balance}. Please pay soon.`;
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    const daysSinceLastPayment = customer.lastTransactionDate 
+      ? Math.floor((new Date().getTime() - new Date(customer.lastTransactionDate).getTime()) / (1000 * 3600 * 24)) 
+      : 30; // default to 30 days if no previous transaction date found
 
-    window.open(url, '_blank');
+    this.snackBar.open('🤖 AI is generating a smart reminder...', 'Close', { duration: 3000 });
+
+    try {
+      const message = await this.openaiService.generatePaymentReminder(
+        customer.name, 
+        customer.balance, 
+        daysSinceLastPayment
+      );
+      
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+      this.snackBar.dismiss();
+    } catch (error) {
+      const fallbackMessage = `Hello ${customer.name}, your current balance is ₹${customer.balance}. Please pay soon.`;
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(fallbackMessage)}`;
+      window.open(url, '_blank');
+    }
   }
 
   viewCustomer(customerId: string): void {
