@@ -1,37 +1,43 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
-import { authGuard } from './core/guards/auth.guard'; // Ensure this import path is correct
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-    {
+  {
+    path: '',
+    loadComponent: () => import('./modules/landing/landing.component').then(m => m.LandingComponent),
+    pathMatch: 'full'
+  },
+  {
+    path: 'auth/login',
+    loadComponent: () => import('./modules/auth/login/login.component').then(m => m.LoginComponent)
+  },
+  {
+    path: '',
+    loadComponent: () => import('./layouts/main-layout/main-layout.component').then(m => m.MainLayoutComponent),
+    canActivate: [authGuard],
+    children: [
+      {
         path: 'dashboard',
-        component: DashboardComponent,
-        canActivate: [authGuard]
-    },
-    {
-        path: 'auth/login',
-        loadComponent: () => import('./modules/auth/login/login.component').then(m => m.LoginComponent)
-    },
-    {
+        component: DashboardComponent
+      },
+      {
         path: 'customers',
-        loadComponent: () => import('./modules/customers/customer-list/customer-list.component').then(m => m.CustomerListComponent),
-        canActivate: [authGuard]
-    },
-    {
+        loadComponent: () => import('./modules/customers/customer-list/customer-list.component').then(m => m.CustomerListComponent)
+      },
+      {
         path: 'customers/:id',
-        loadComponent: () => import('./modules/customers/customer-details/customer-details.component').then(m => m.CustomerDetailsComponent),
-        canActivate: [authGuard]
-    },
-    {
+        loadComponent: () => import('./modules/customers/customer-details/customer-details.component').then(m => m.CustomerDetailsComponent)
+      },
+      {
         path: 'reports',
-        loadComponent: () => import('./modules/reports/reports.component').then(m => m.ReportsComponent),
-        canActivate: [authGuard]
-    },
-    {
+        loadComponent: () => import('./modules/reports/reports.component').then(m => m.ReportsComponent)
+      },
+      {
         path: 'settings',
-        loadComponent: () => import('./modules/settings/settings.component').then(m => m.SettingsComponent),
-        canActivate: [authGuard]
-    },
-    { path: '**', redirectTo: 'dashboard' }
+        loadComponent: () => import('./modules/settings/settings.component').then(m => m.SettingsComponent)
+      }
+    ]
+  },
+  { path: '**', redirectTo: 'dashboard' }
 ];

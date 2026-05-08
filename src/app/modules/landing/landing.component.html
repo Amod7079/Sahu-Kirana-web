@@ -1,0 +1,121 @@
+<div class="landing-container">
+  <!-- Header / Navigation -->
+  <header class="landing-header">
+    <div class="logo">
+      <span class="logo-icon">🏪</span>
+      <h1>Sahu Kirana Web</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a routerLink="/auth/login" class="nav-link-btn">Login</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <span class="badge">✨ AI-Powered Ledger System</span>
+      <h2 class="hero-title">Smart Management for<br><span class="highlight">Sahu Kirana</span></h2>
+      <p class="hero-subtitle">
+        Empower your business with a smart digital khata. Track customers, manage pending payments effortlessly, and
+        send personalized AI WhatsApp reminders.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/dashboard" class="btn btn-primary">
+          Go to Dashboard
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="#features" class="btn btn-secondary">Learn More</a>
+      </div>
+    </div>
+
+    <!-- Hero Visual / Graphic -->
+    <div class="hero-visual">
+      <div class="glass-card main-card">
+        <div class="card-header">
+          <div class="dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="card-title">Recent Transactions</span>
+        </div>
+        <div class="card-body">
+          <div class="mock-item">
+            <div class="mock-avatar">R</div>
+            <div class="mock-info">
+              <span class="mock-name">Amod Sah</span>
+              <span class="mock-date">Today, 10:30 AM</span>
+            </div>
+            <div class="mock-amount pending">- ₹450</div>
+          </div>
+          <div class="mock-item">
+            <div class="mock-avatar bg-blue">S</div>
+            <div class="mock-info">
+              <span class="mock-name">Sita</span>
+              <span class="mock-date">Yesterday</span>
+            </div>
+            <div class="mock-amount paid">+ ₹1,200</div>
+          </div>
+          <div class="mock-item">
+            <div class="mock-avatar bg-purple">A</div>
+            <div class="mock-info">
+              <span class="mock-name">Amit</span>
+              <span class="mock-date">May 5th</span>
+            </div>
+            <div class="mock-amount pending">- ₹850</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating AI Card -->
+      <div class="glass-card ai-card float-anim">
+        <div class="ai-header">
+          <svg class="ai-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z">
+            </path>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          <span>AI Reminder Sent</span>
+        </div>
+        <p class="ai-msg">"Namaste Amod ji, aapka ₹850 baaki hai..."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section">
+    <div class="section-heading">
+      <h2>Everything You Need</h2>
+      <p>Powerful tools designed specifically for Indian Kirana stores.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of features">
+        <div class="feature-icon" [innerHTML]="feature.icon"></div>
+        <h3 class="feature-title">{{ feature.title }}</h3>
+        <p class="feature-desc">{{ feature.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span class="logo-icon">🏪</span>
+        <h2>Sahu Kirana</h2>
+      </div>
+      <p class="footer-tagline">Making store management effortless.</p>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Sahu Kirana Web. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
