@@ -24,11 +24,11 @@ export class AuthService {
     // For demo purposes, we'll simulate a successful login
     const user: User = {
       id: '1',
-      name: 'Kirana Shop Owner',
+      name: 'Amod Kumar Sah',
       email: credentials.email,
       phone: '+919876543210',
-      shopName: 'Smart Kirana Store',
-      address: '123 Main Bazaar, City',
+      shopName: 'Credixa',
+      address: 'Banshibatarahan , main market',
       createdAt: new Date(),
       updatedAt: new Date()
     };
