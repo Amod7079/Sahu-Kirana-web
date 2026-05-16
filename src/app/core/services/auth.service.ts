@@ -26,7 +26,7 @@ export class AuthService {
       id: '1',
       name: 'Amod Kumar Sah',
       email: credentials.email,
-      phone: '+919876543210',
+      phone: '+917079..',
       shopName: 'Credixa',
       address: 'Banshibatarahan , main market',
       createdAt: new Date(),
