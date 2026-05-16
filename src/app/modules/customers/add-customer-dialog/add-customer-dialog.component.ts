@@ -5,6 +5,8 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 import { Customer } from '../../../core/models/customer.model';
 
 @Component({
@@ -16,7 +18,9 @@ import { Customer } from '../../../core/models/customer.model';
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    MatDividerModule
   ],
   templateUrl: './add-customer-dialog.component.html',
   styleUrl: './add-customer-dialog.component.scss'
