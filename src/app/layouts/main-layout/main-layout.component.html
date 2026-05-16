@@ -12,6 +12,9 @@
   <span class="spacer"></span>
 
   <div class="header-right">
+    <button mat-icon-button (click)="toggleTheme()" aria-label="Toggle dark mode" class="theme-toggle">
+      <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
     <div *ngIf="currentUser; else loginButton" class="user-info">
       <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-trigger">
         <div class="user-avatar-mini">
@@ -85,8 +88,8 @@
   </mat-sidenav>
 
   <mat-sidenav-content class="main-content-area">
-    <div class="content">
-      <router-outlet></router-outlet>
+    <div class="content" [@triggerName]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
     </div>
 
     <footer class="modern-footer">

@@ -12,6 +12,8 @@ import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
+import { routeTransitionAnimations } from '../../core/animations/route-animations';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main-layout',
@@ -28,12 +30,14 @@ import { User } from '../../core/models/user.model';
     MatDividerModule
   ],
   templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.scss']
+  styleUrls: ['./main-layout.component.scss'],
+  animations: [routeTransitionAnimations]
 })
 export class MainLayoutComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   currentUser: User | null = null;
   isMobile = false;
+  isDarkMode = false;
   currentYear = new Date().getFullYear();
   private userSubscription: Subscription | undefined;
 
@@ -82,6 +86,19 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
 
   toggleSidenav(): void {
     this.sidenav.toggle();
+  }
+
+  toggleTheme(): void {
+    this.isDarkMode = !this.isDarkMode;
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 
   ngOnDestroy(): void {

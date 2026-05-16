@@ -17,3 +17,61 @@ body {
 .content {
     padding: 20px;
 }
+
+/* Dark Theme Variables & Styles */
+:root {
+  --bg-color: #f8f9fa;
+  --text-color: #333;
+  --card-bg: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --border-color: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-theme {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --header-bg: rgba(30, 30, 30, 0.95);
+  --border-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+body.dark-theme mat-card {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+}
+
+body.dark-theme .mat-toolbar,
+body.dark-theme .main-header {
+  background: var(--header-bg) !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+body.dark-theme .main-header button, 
+body.dark-theme .main-header span, 
+body.dark-theme .main-header mat-icon {
+    color: var(--text-color) !important;
+}
+
+body.dark-theme .sidenav-container,
+body.dark-theme .content {
+  background-color: var(--bg-color) !important;
+}
+
+body.dark-theme .modern-sidenav {
+  background: var(--card-bg) !important;
+  border-right: 1px solid var(--border-color);
+}
+
+body.dark-theme .nav-item span {
+  color: var(--text-color) !important;
+}
+
+body.dark-theme .transaction-item {
+    background: rgba(255,255,255,0.05) !important;
+}
+
+body.dark-theme .transaction-item:hover {
+    background: rgba(255,255,255,0.08) !important;
+}
